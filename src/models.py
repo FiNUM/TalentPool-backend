@@ -20,15 +20,32 @@ class TempTP(db.Model):
     timestamp = db.Column(db.TIMESTAMP, nullable=False)
     paid = db.Column(db.Boolean, default=False)
     started = db.Column(db.Boolean, default=True)
-    languagetable = db.relationship('Languages', backref='temptp', lazy=True)
-    educationtable=db.relationship('Education', )
+    languageTable = db.relationship('Languages', backref='temptp', lazy=True)
+    studiesTable = db.relationship('Studies', backref='temptp', lazy=True)
+    itSkillsTable = db.relationship('ItSkills', backref='temptp', lazy=True)
+    furtherEducationTable = db.relationship('ItSkills', backref='temptp', lazy=True)
 
     def __repr__(self):
         return '<TempTP %r>' % self.username
 
-class Education(db.Model):
+
+class FurtherEducation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     education = db.Column(db.String(100))
+    temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
+
+
+class Studies(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    studies = db.Column(db.String(100))
+    temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
+
+
+class ItSkills(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    itSkills = db.Column(db.String(100))
+    temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
+
 
 class Languages(db.Model):
     id = db.Column(db.Integer, primary_key=True)
