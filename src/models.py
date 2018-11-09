@@ -1,4 +1,4 @@
-from app import db
+from server import db
 
 
 class TempTP(db.Model):
@@ -10,7 +10,7 @@ class TempTP(db.Model):
     birthday = db.Column(db.Date, nullable=False)
     nationality = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(80))
-    telephoneNumber = db.Column(db.Integer(40))
+    telephoneNumber = db.Column(db.Integer)
     address = db.Column(db.String(200))
     desiredPosition = db.Column(db.String(100))
     # earliest starting date
@@ -26,7 +26,7 @@ class TempTP(db.Model):
     applicationsTable = db.relationship('applications', backref='temptp', lazy=True)
     leadershipTable = db.relationship('leading_positions', backref='temptp', lazy=True)
     careerGoals = db.Column(db.Text)
-    salaryExpectations = db.Column(db.Integer(40))
+    salaryExpectations = db.Column(db.Integer)
     salaryFactors = db.Column(db.Text)
     regionallyAvailable = db.Column(db.Boolean)
     nationalAvailable = db.Column(db.Boolean)

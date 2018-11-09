@@ -1,5 +1,5 @@
 from sqlalchemy.exc import OperationalError
-import src.models as models
+import models as models
 from time import sleep
 
 
@@ -20,9 +20,7 @@ def init():
     except Exception as e:
         print("DB ERROR: ", e)
         print("initDB now!")
-        import create_db
-
-        create_db
+        models.db.create_all()
         print("initDB DONE")
 
 

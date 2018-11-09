@@ -2,6 +2,6 @@
 
 echo "sleep 30s"
 sleep 30s
-python initDB.py
+python src/initDB.py
 
-/usr/local/bin/gunicorn -b :$1 server:app
+/usr/local/bin/gunicorn -b :$1 app:app

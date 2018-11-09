@@ -1,12 +1,12 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 
-from src.config import BaseConfig
+from config import BaseConfig
 
 app = Flask(__name__)
 app.config.from_object(BaseConfig)
 db = SQLAlchemy(app)
-import src.models as models
+import models as models
 
 @app.route('/users', methods=['POST'])
 def create_checkout():
