@@ -8,18 +8,32 @@ app.config.from_object(BaseConfig)
 db = SQLAlchemy(app)
 import models as models
 
+
 @app.route('/users', methods=['POST'])
 def create_checkout():
-    bot = (request.form['username'],
-              request.form['password'])
-    for f in request.form:
-        if not (f == 'username' or f == 'password') and request.form[f] == 'on':
-            try:
-                app.logger.info('Starting: %s' % f)
-            except Exception as e:
-                app.logger.warning(e)
+    # bot = (request.form['username'],
+    #        request.form['password'])
+
+    models.Languages(language=request.form['language'], ability=request.form['bla'])
+
+    models.Studies(studies=request.form['bla'], periodFrom=request.form['bla'], periodTo=request.form['bla'])
+
+    models.ItSkills(itSkills=request.form['bla'], knowledge=request.form['bla'])
+
+    models.FurtherEducation(education=request.form['bla'])
+
+    models.ProfessionalExperience(company=request.form['bla'], periodFrom=request.form['bla'], periodTo=request.form['bla'])
+
+    models.Applications(company=request.form['bla'])
+
+    models.LeadingPositions(previousLeadingPosition=request.form['bla'], nrOfPplResponsible=request.form['bla'])
+
+    models.TempTP(forename=request.form['forename'])
+
+    db.session.add()
 
     return "DONE"
+
 
 @app.route('/')
 def hello_world():

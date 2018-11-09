@@ -17,7 +17,7 @@ class TempTP(db.Model):
     startingDate = db.Column(db.Date)
     graduation = db.Column(db.String(100), nullable=False)
     apprenticeship = db.Column(db.String(100))
-    timestamp = db.Column(db.TIMESTAMP, nullable=False) #needed?
+    timestamp = db.Column(db.TIMESTAMP, nullable=False)
     languageTable = db.relationship('languages', backref='temptp', lazy=True)
     studiesTable = db.relationship('studies', backref='temptp', lazy=True)
     itSkillsTable = db.relationship('it_skills', backref='temptp', lazy=True)
@@ -32,7 +32,7 @@ class TempTP(db.Model):
     nationalAvailable = db.Column(db.Boolean)
 
     def __repr__(self):
-        return '<TempTP %r>' % self.name  # what is it for?
+        return '<TempTP %r>' % self.name
 
 
 class LeadingPositions(db.Model):
