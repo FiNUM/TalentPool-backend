@@ -15,7 +15,7 @@ class TempTP(db.Model):
     desiredPosition = db.Column(db.String(100))
     # earliest starting date
     startingDate = db.Column(db.Date)
-    graduation = db.Column(db.String(100), nullable=False)
+    graduation = db.relationship('graduation', backref='temptp', lazy=True)
     apprenticeship = db.Column(db.String(100))
     timestamp = db.Column(db.TIMESTAMP, nullable=False)
     languageTable = db.relationship('languages', backref='temptp', lazy=True)
@@ -35,10 +35,17 @@ class TempTP(db.Model):
         return '<TempTP %r>' % self.name
 
 
+class Graduation(db.Model):
+    __tablename__ = 'graduation'
+    id = db.Column(db.Integer, primary_key=True)
+    graduation = db.Column(db.String(100), nullable=False)
+    temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
+
+
 class LeadingPositions(db.Model):
     __tablename__ = 'leading_positions'
     id = db.Column(db.Integer, primary_key=True)
-    previousLeadingPosition = db.Column(db.String(100),)
+    previousLeadingPosition = db.Column(db.String(100), nullable=False)
     nrOfPplResponsible = db.Column(db.Integer, nullable=False)
     temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
 
@@ -53,8 +60,8 @@ class Applications(db.Model):
 class ProfessionalExperience(db.Model):  # what if you have no Experience?
     __tablename__ = 'professional_experience'
     id = db.Column(db.Integer, primary_key=True)
-    company = db.Column(db.String(100))
-    position = db.Column(db.String(100))
+    company = db.Column(db.String(100), nullable=False)
+    position = db.Column(db.String(100), nullable=False)
     periodFrom = db.Column(db.Date, nullable=False)
     periodTo = db.Column(db.Date, nullable=False)
     temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
@@ -63,14 +70,14 @@ class ProfessionalExperience(db.Model):  # what if you have no Experience?
 class FurtherEducation(db.Model):  # what if you have no further education?
     __tablename__ = 'further_education'
     id = db.Column(db.Integer, primary_key=True)
-    education = db.Column(db.String(100))
+    education = db.Column(db.String(100), nullable=False)
     temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
 
 
 class Studies(db.Model):  # Studium
     __tablename__ = 'studies'
     id = db.Column(db.Integer, primary_key=True)
-    studies = db.Column(db.String(100))
+    studies = db.Column(db.String(100), nullable=False)
     periodFrom = db.Column(db.Date, nullable=False)
     periodTo = db.Column(db.Date, nullable=False)
     temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
@@ -79,8 +86,8 @@ class Studies(db.Model):  # Studium
 class ItSkills(db.Model):
     __tablename__ = 'it_skills'
     id = db.Column(db.Integer, primary_key=True)
-    itSkills = db.Column(db.String(100))
-    knowledge = db.Column(db.Integer)  # how good is your skill
+    itSkills = db.Column(db.String(100), nullable=False)
+    knowledge = db.Column(db.Integer, nullable=False)  # how good is your skill
     temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
 
 
@@ -95,4 +102,4 @@ class Languages(db.Model):
 
 def list_tables():
     return [TempTP, Languages, ItSkills, Studies, FurtherEducation, ProfessionalExperience, Applications,
-            LeadingPositions]
+            LeadingPositions, Graduation]
