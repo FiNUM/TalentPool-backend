@@ -38,7 +38,7 @@ class TempTP(db.Model):
 class LeadingPositions(db.Model):
     __tablename__ = 'leading_positions'
     id = db.Column(db.Integer, primary_key=True)
-    previousLeadingPosition = db.Column(db.String(100))
+    previousLeadingPosition = db.Column(db.String(100),)
     nrOfPplResponsible = db.Column(db.Integer, nullable=False)
     temptp_id = db.Column(db.Integer, db.ForeignKey('temptp.id'), nullable=False)
 

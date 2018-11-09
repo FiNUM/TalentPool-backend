@@ -14,7 +14,8 @@ def create_checkout():
     # bot = (request.form['username'],
     #        request.form['password'])
 
-    models.Languages(language=request.form['language'], ability=request.form['bla'])
+    language = models.Languages(language=request.form['language'], ability=request.form['bla'])
+    db.session.add(language)
 
     models.Studies(studies=request.form['bla'], periodFrom=request.form['bla'], periodTo=request.form['bla'])
 
@@ -28,9 +29,9 @@ def create_checkout():
 
     models.LeadingPositions(previousLeadingPosition=request.form['bla'], nrOfPplResponsible=request.form['bla'])
 
-    models.TempTP(forename=request.form['forename'])
+    models.TempTP(forename=request.form['forename'], languageTable=language.id)
 
-    db.session.add()
+    db.session.commit()
 
     return "DONE"
 
